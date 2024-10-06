@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas</h1>
+        <a href="/add" class="button">Adicionar Tarefa</a>
+        
+        <ul class="task-list">
+            {% for task in tasks %}
+            <li class="task-card">
+                <div class="task-header">
+                    <h4>{{ task['title'] }}</h4>
+                    <div>
+                        <a href="/edit/{{ task['id'] }}" class="edit-button">Editar</a>
+                        <a href="/transfer/{{ task['id'] }}" class="transfer-button">Transferir</a>
+                        <form action="{{ url_for('delete_task_route', task_id=task['id']) }}" method="post" style="display: inline;">
+                            <input type="submit" value="Excluir" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                        </form>
+                    </div>
+                </div>
+                <p>{{ task['description'] }}</p>
+                <p><strong>Prioridade:</strong> {{ task['priority'] }}</p>
+                <p><strong>Responsável:</strong> {{ task['responsible'] }}</p>
+                <p><strong>Data de Conclusão:</strong> {{ task['due_date'] }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>    
+</body>
+</html>

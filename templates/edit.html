@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <form action="{{ url_for('edit_task_route', task_id=task['id']) }}" method="post">
+            <input type="text" name="title" value="{{ task['title'] }}" required placeholder="Título">
+            <textarea name="description" required placeholder="Descrição">{{ task['description'] }}</textarea>
+            <select name="priority" required>
+                <option value="Baixa" {% if task['priority'] == 'Baixa' %}selected{% endif %}>Baixa</option>
+                <option value="Média" {% if task['priority'] == 'Média' %}selected{% endif %}>Média</option>
+                <option value="Alta" {% if task['priority'] == 'Alta' %}selected{% endif %}>Alta</option>
+            </select>
+            <input type="text" name="responsible" value="{{ task['responsible'] }}" required placeholder="Responsável">
+            <input type="date" name="due_date" value="{{ task['due_date'] }}" required>
+            <input type="submit" value="Atualizar Tarefa">
+        </form>
+        <a href="/" class="button button-back">Voltar</a>
+    </div>
+</body>
+</html>

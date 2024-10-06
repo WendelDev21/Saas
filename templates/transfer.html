@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transferir Tarefa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Transferir Tarefa: {{ task['title'] }}</h1>
+        <form action="{{ url_for('transfer_task_route', task_id=task['id']) }}" method="post">
+            <label for="responsible">Novo Responsável:</label>
+            <input type="text" name="responsible" required placeholder="Nome do novo responsável">
+            <input type="submit" value="Transferir">
+        </form>
+        <a href="/" class="button button-back">Voltar</a>
+    </div>
+</body>
+</html>
