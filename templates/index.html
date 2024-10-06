@@ -17,10 +17,12 @@
                 <div class="task-header">
                     <h4>{{ task['title'] }}</h4>
                     <div>
-                        <a href="/edit/{{ task['id'] }}" class="edit-button">Editar</a>
-                        <a href="/transfer/{{ task['id'] }}" class="transfer-button">Transferir</a>
+                        {% if task['status'] != 'Concluída' %}
+                            <a href="/edit/{{ task['id'] }}" class="edit-button">Editar</a>
+                            <a href="/transfer/{{ task['id'] }}" class="transfer-button">Transferir</a>
+                        {% endif %}
                         <form action="{{ url_for('delete_task_route', task_id=task['id']) }}" method="post" style="display: inline;">
-                            <input type="submit" value="Excluir" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                            <input type="submit" value="Excluir" id="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
                         </form>
                     </div>
                 </div>
@@ -28,6 +30,18 @@
                 <p><strong>Prioridade:</strong> {{ task['priority'] }}</p>
                 <p><strong>Responsável:</strong> {{ task['responsible'] }}</p>
                 <p><strong>Data de Conclusão:</strong> {{ task['due_date'] }}</p>
+
+                {% if task['status'] == 'Concluída' %}
+                    <p><strong>Concluída por:</strong> {{ task['completed_by'] }}</p>
+                    <p><strong>Data de Conclusão:</strong> {{ task['completed_at'] }}</p>
+                {% endif %}
+
+                {% if task['status'] != 'Concluída' %}
+                    <form action="{{ url_for('complete_task', task_id=task['id']) }}" method="post">
+                        <input type="text" name="completed_by" placeholder="Seu nome" required>
+                        <input type="submit" value="Concluir Tarefa">
+                    </form>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
