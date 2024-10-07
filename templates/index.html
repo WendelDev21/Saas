@@ -18,8 +18,8 @@
                     <h4>{{ task['title'] }}</h4>
                     <div>
                         {% if task['status'] != 'Concluída' %}
-                            <a href="/edit/{{ task['id'] }}" class="edit-button">Editar</a>
-                            <a href="/transfer/{{ task['id'] }}" class="transfer-button">Transferir</a>
+                            <a href="/edit/{{ task['id'] }}" id="edit-button">Editar</a>
+                            <a href="/transfer/{{ task['id'] }}" id="transfer-button">Transferir</a>
                         {% endif %}
                         <form action="{{ url_for('delete_task_route', task_id=task['id']) }}" method="post" style="display: inline;">
                             <input type="submit" value="Excluir" id="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
